@@ -114,7 +114,13 @@ public final class Main {
    * * IMPLEMENT METHOD runSparkServer() HERE
    */
   private void runSparkServer(int port) {
-    // TODO
+    Spark.port(port);
+    Spark.externalStaticFileLocation("src/main/resources/static");
+    Spark.exception(Exception.class, new ExceptionPrinter());
+    FreeMarkerEngine freeMarker = createEngine();
+    //when users visits /autocorrect, browser requests information from spark server, which feeds
+    //it to autocorrecthandler, which loads the information for that page
+    Spark.get("/autocorrect", new AutocorrectHandler(), freeMarker);
   }
 
   /**
@@ -141,6 +147,11 @@ public final class Main {
    *  @return ModelAndView to render.
    *  (autocorrect.ftl).
    */
+  private static class AutocorrectHandler implements TemplateViewRoute(){
+    public ModelAndView handle(Request req, Response res){
+      return new ModelAndView(null, "main.ftl");
+    }
+  }
 
   /**
    *  IMPLEMENT SubmitHandler HERE

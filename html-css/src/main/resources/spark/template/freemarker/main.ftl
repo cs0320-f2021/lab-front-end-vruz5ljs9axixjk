@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
+    <h1> "WEBPAGE TITLE" </h1>
        <!-- Again, we're serving up the unminified source for clarity. -->
      <script src="js/jquery-2.1.1.js"></script>
      <script src="js/main.js"></script>
